@@ -63,7 +63,7 @@ export class ActionsComponent implements OnInit {
     this.selectedCauseData.emit(actionData);
   }
 
-  seletedPartCauseAction(selectedCause: Cause, selectedAction: Action) {
+  seletedPartCauseAction(selectedCause: any, selectedAction: Action) {
     let childActionCausedata = {
       selectedCause: selectedCause,
       selectedAction: selectedAction
