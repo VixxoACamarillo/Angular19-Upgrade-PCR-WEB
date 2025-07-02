@@ -1,0 +1,85 @@
+<div class="location-container">
+  <div class="location-header">
+    <h4>Select Part Location</h4>
+    <p class="location-subtitle">Choose the specific location where the part is installed</p>
+  </div>
+
+  <!-- No Location Data -->
+  <div *ngIf="!levelInfo || levelInfo.length === 0" class="no-location-data">
+    <div class="no-data-content">
+      <h5>No Location Information</h5>
+      <p>Location hierarchy is not available for this part.</p>
+    </div>
+  </div>
+
+  <!-- Location Hierarchy -->
+  <div *ngIf="levelInfo && levelInfo.length > 0" class="location-hierarchy">
+
+    <!-- Display Selected Path -->
+    <div *ngIf="display()" class="selected-path">
+      <div class="path-header">
+        <strong>Selected Path:</strong>
+      </div>
+      <div class="path-breadcrumbs">
+        <span
+          *ngFor="let part of levelInfo; let last = last"
+          class="breadcrumb-item"
+          [class.selected]="part.isSelected">
+          {{ part.partUiPathName }}
+          <span *ngIf="!last" class="breadcrumb-separator">→</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Location Selection List -->
+    <div class="location-list">
+      <div
+        *ngFor="let part of levelInfo; let i = index"
+        class="location-item"
+        [class.selected]="part.isSelected"
+        [class.already-selected]="part.isAreaPathAlreadySelected"
+        [class.partial-select]="part.isAreaPathLevelPartialSelect"
+        (click)="onClick(part)">
+
+        <!-- Level Indicator -->
+        <div class="level-indicator">
+          <span class="level-number">{{ part.level }}</span>
+        </div>
+
+        <!-- Location Info -->
+        <div class="location-info">
+          <div class="location-name">{{ part.partUiPathName }}</div>
+          <div class="location-details">
+            <span class="location-id">ID: {{ part.partUiPathId }}</span>
+            <span class="location-path">Path: {{ part.partUiPath }}</span>
+          </div>
+          <div class="location-status" *ngIf="part.isAreaPathAlreadySelected">
+            <span class="status-badge already-selected">Already Selected</span>
+          </div>
+          <div class="location-status" *ngIf="part.isAreaPathLevelPartialSelect">
+            <span class="status-badge partial-select">Partial Selection</span>
+          </div>
+        </div>
+
+        <!-- Selection Indicator -->
+        <div class="selection-indicator" *ngIf="part.isSelected">
+          <span class="checkmark">✓</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Instructions -->
+    <div class="location-instructions">
+      <div class="instruction-item">
+        <strong>Instructions:</strong>
+        <ul>
+          <li>Select the most specific location where the part is installed</li>
+          <li>Green items are already selected in your configuration</li>
+          <li>Yellow items have partial selections in child levels</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>

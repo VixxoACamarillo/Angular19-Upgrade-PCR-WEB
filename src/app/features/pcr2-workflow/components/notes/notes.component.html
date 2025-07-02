@@ -1,0 +1,51 @@
+<div class="notes-container">
+  <!-- Loader -->
+  <div *ngIf="loader" class="loader-container">
+    <div class="loader"></div>
+  </div>
+
+  <!-- Notes Section -->
+  <div *ngIf="!loader" class="notes-content">
+    <h3>Notes & Attachments</h3>
+
+    <!-- Add Note Button -->
+    <button type="button" class="btn btn-primary" (click)="addNote()">
+      Add Note
+    </button>
+
+    <!-- Saved Note Display -->
+    <div *ngIf="savedNote" class="saved-note">
+      <h4>Saved Note:</h4>
+      <p>{{ savedNote }}</p>
+    </div>
+
+    <!-- Attachments Display -->
+    <div *ngIf="attachmentsData.length > 0" class="attachments-section">
+      <h4>Attachments:</h4>
+      <div *ngFor="let attachment of attachmentsData" class="attachment-item">
+        <!-- Attachment display will be implemented later -->
+        <span>{{ attachment.key || 'Attachment' }}</span>
+      </div>
+    </div>
+
+    <!-- File Upload (simplified for now) -->
+    <div class="upload-section">
+      <kendo-upload
+        [multiple]="false"
+        [autoUpload]="false"
+        (select)="onFileSelect($event)">
+      </kendo-upload>
+    </div>
+  </div>
+
+  <!-- Error Modals (simplified) -->
+  <div *ngIf="showFileUploadModal" class="error-modal">
+    <p>{{ errorMessage.message }}</p>
+    <button (click)="close({})">Close</button>
+  </div>
+
+  <div *ngIf="showLargeFile" class="error-modal">
+    <p>{{ sizeErrorMessage.message }}</p>
+    <button (click)="close({})">Close</button>
+  </div>
+</div>

@@ -1,0 +1,126 @@
+.cause-container {
+  padding: 15px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  background-color: #fff;
+
+  .cause-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+
+    h4 {
+      margin: 0;
+      color: #495057;
+      font-size: 1.1rem;
+    }
+
+    .btn {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 0.875rem;
+
+      &.btn-secondary {
+        background-color: #6c757d;
+        color: white;
+
+        &:hover {
+          background-color: #545b62;
+        }
+      }
+    }
+  }
+
+  .selected-cause {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+    padding: 12px;
+    margin-bottom: 15px;
+
+    .selected-item {
+      color: #155724;
+      font-weight: 500;
+    }
+  }
+
+  .cause-selection {
+    .child-causes {
+      padding: 0;
+
+      .cause-item {
+        padding: 10px 15px;
+        border-bottom: 1px solid #f1f1f1;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: #f8f9fa;
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        .cause-name {
+          display: block;
+          font-weight: 500;
+          color: #495057;
+          margin-bottom: 4px;
+        }
+
+        .cause-description {
+          display: block;
+          font-size: 0.875rem;
+          color: #6c757d;
+          line-height: 1.4;
+        }
+      }
+    }
+  }
+
+  .no-data {
+    text-align: center;
+    padding: 30px;
+    color: #6c757d;
+    font-style: italic;
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+// Override Kendo PanelBar styles
+:host ::ng-deep {
+  .k-panelbar {
+    border: 1px solid #dee2e6;
+
+    .k-panelbar-item {
+      border-color: #dee2e6;
+
+      .k-panelbar-header {
+        background-color: #f8f9fa;
+        color: #495057;
+        font-weight: 500;
+
+        &:hover {
+          background-color: #e9ecef;
+        }
+
+        &.k-selected {
+          background-color: #007bff;
+          color: white;
+        }
+      }
+
+      .k-panelbar-content {
+        padding: 0;
+        border-color: #dee2e6;
+      }
+    }
+  }
+}

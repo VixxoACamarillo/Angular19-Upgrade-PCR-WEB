@@ -1,0 +1,115 @@
+<div class="work-report-container">
+  <div class="work-report-header">
+    <h3>Work Report</h3>
+    <p class="work-report-description">
+      Select which actions were proactive fixes vs reported issue fixes.
+    </p>
+  </div>
+
+  <!-- Loader -->
+  <div *ngIf="!loader" class="loader-container">
+    <div class="loader"></div>
+    <p>Loading work report data...</p>
+  </div>
+
+  <!-- No Data -->
+  <div *ngIf="loader && partData.length === 0" class="no-data">
+    <div class="no-data-content">
+      <h4>No Parts Available</h4>
+      <p>Please complete the previous steps to generate a work report.</p>
+    </div>
+  </div>
+
+  <!-- Work Report Content -->
+  <div *ngIf="loader && partData.length > 0" class="work-report-content">
+
+    <!-- Reported Issue Section -->
+    <div *ngIf="reportedIssue" class="reported-issue-section">
+      <h4>Reported Issue</h4>
+      <div class="issue-description">
+        {{ reportedIssue }}
+      </div>
+    </div>
+
+    <!-- Actions Grid -->
+    <div class="actions-grid">
+
+      <!-- Proactive Actions Column -->
+      <div class="actions-column proactive-column">
+        <div class="column-header proactive-header">
+          <h4>Proactive Actions</h4>
+          <span class="column-subtitle">Actions taken to prevent issues</span>
+        </div>
+
+        <div class="actions-list">
+          <div
+            *ngFor="let proactiveItem of proactiveActionList"
+            class="action-item"
+            [class.selected]="proactiveItem.isSelected"
+            [class.disabled]="proactiveItem.disableProactiveItems"
+            (click)="!proactiveItem.disableProactiveItems && onClick(proactiveItem)">
+
+            <div class="checkbox-container">
+              <input
+                type="checkbox"
+                [checked]="proactiveItem.isSelected"
+                [disabled]="proactiveItem.disableProactiveItems"
+                readonly>
+            </div>
+
+            <div class="action-details">
+              <div class="action-text">{{ proactiveItem.partAction }}</div>
+              <div class="part-info">
+                <span class="part-id">Part ID: {{ proactiveItem.partId }}</span>
+                <span class="copy-id" *ngIf="proactiveItem.copyId > 0">Copy: {{ proactiveItem.copyId }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Taken Column -->
+      <div class="actions-column taken-column">
+        <div class="column-header taken-header">
+          <h4>Reported Issue Fixes</h4>
+          <span class="column-subtitle">Actions taken to fix reported problems</span>
+        </div>
+
+        <div class="actions-list">
+          <div
+            *ngFor="let takenItem of takenActionList"
+            class="action-item"
+            [class.selected]="takenItem.isSelected"
+            [class.disabled]="takenItem.disableActionItems"
+            (click)="!takenItem.disableActionItems && onClick(takenItem)">
+
+            <div class="checkbox-container">
+              <input
+                type="checkbox"
+                [checked]="takenItem.isSelected"
+                [disabled]="takenItem.disableActionItems"
+                readonly>
+            </div>
+
+            <div class="action-details">
+              <div class="action-text">{{ takenItem.partAction }}</div>
+              <div class="part-info">
+                <span class="part-id">Part ID: {{ takenItem.partId }}</span>
+                <span class="copy-id" *ngIf="takenItem.copyId > 0">Copy: {{ takenItem.copyId }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Instructions -->
+    <div class="instructions">
+      <div class="instruction-item">
+        <strong>Note:</strong> Each part can only be marked as either a proactive action OR a reported issue fix, not both.
+      </div>
+    </div>
+
+  </div>
+</div>

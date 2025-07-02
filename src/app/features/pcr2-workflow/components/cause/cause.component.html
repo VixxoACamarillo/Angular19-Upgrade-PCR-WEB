@@ -1,0 +1,50 @@
+<div class="cause-container">
+  <div class="cause-header">
+    <h4>Select Cause</h4>
+    <button
+      *ngIf="isCauseSelected"
+      class="btn btn-secondary btn-sm"
+      (click)="onCauseDeselect()">
+      Clear Selection
+    </button>
+  </div>
+
+  <!-- Selected Cause Display -->
+  <div *ngIf="isCauseSelected" class="selected-cause">
+    <div class="selected-item">
+      <strong>Selected:</strong> {{ selectedCauseName }}
+    </div>
+  </div>
+
+  <!-- Cause Selection -->
+  <div *ngIf="!isCauseSelected && groupByParentCause" class="cause-selection">
+    <kendo-panelbar
+      (stateChange)="onStateChange($event)"
+      [expandMode]="expandMode">
+
+      <kendo-panelbar-item
+        *ngFor="let parentGroup of groupByParentCause"
+        [title]="parentGroup.parentCauseName"
+        [expanded]="false">
+
+        <ng-template kendoPanelBarContent>
+          <div class="child-causes">
+            <div
+              *ngFor="let childCause of parentGroup.childCause"
+              class="cause-item"
+              (click)="onCauseClick(childCause)">
+              <span class="cause-name">{{ childCause.causeName }}</span>
+              <span class="cause-description">{{ childCause.causeDescription }}</span>
+            </div>
+          </div>
+        </ng-template>
+
+      </kendo-panelbar-item>
+    </kendo-panelbar>
+  </div>
+
+  <!-- No Data Message -->
+  <div *ngIf="!isCauseSelected && !groupByParentCause" class="no-data">
+    <p>No causes available. Please select an action first.</p>
+  </div>
+</div>

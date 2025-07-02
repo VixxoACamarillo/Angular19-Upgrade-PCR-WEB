@@ -1,0 +1,75 @@
+<div class="overview-container">
+  <div class="overview-header">
+    <h3>Parts Overview</h3>
+    <p class="overview-description">
+      Review and confirm the quantity for replaced parts below.
+    </p>
+  </div>
+
+  <!-- No Data Message -->
+  <div *ngIf="overviewModel.length === 0" class="no-data">
+    <div class="no-data-content">
+      <h4>No Parts Selected</h4>
+      <p>Please go back to the previous steps and select parts with actions and causes.</p>
+    </div>
+  </div>
+
+  <!-- Overview by Action -->
+  <div *ngIf="overviewModel.length > 0" class="overview-content">
+    <div *ngFor="let actionGroup of overviewModel" class="action-group">
+
+      <!-- Action Header -->
+      <div class="action-header">
+        <h4>{{ actionGroup.actionName }}</h4>
+        <span class="part-count">{{ actionGroup.parts.length }} part(s)</span>
+      </div>
+
+      <!-- Parts List -->
+      <div class="parts-list">
+        <div *ngFor="let part of actionGroup.parts" class="part-item">
+
+          <!-- Part Info -->
+          <div class="part-info">
+            <div class="part-name">{{ part.name }}</div>
+            <div class="part-details">
+              <span class="part-number">Part #: {{ part.number }}</span>
+              <span class="part-sku">SKU: {{ part.sku }}</span>
+            </div>
+            <div class="part-cause" *ngIf="part.cause">
+              <span class="cause-label">Cause:</span> {{ part.cause }}
+            </div>
+          </div>
+
+          <!-- Quantity Input (only for replaced parts) -->
+          <div class="part-quantity" *ngIf="actionGroup.actionName.toLowerCase() === 'replaced'">
+            <label class="quantity-label">Quantity:</label>
+            <input
+              type="number"
+              class="quantity-input"
+              [(ngModel)]="part.overviewPartQuantity"
+              (keydown)="onKeyDown(part)"
+              (keypress)="onKeyPress($event)"
+              min="0"
+              step="1">
+          </div>
+
+          <!-- Fix Type Indicators -->
+          <div class="fix-indicators">
+            <span
+              *ngIf="part.isProactiveFix"
+              class="fix-badge proactive">
+              Proactive Fix
+            </span>
+            <span
+              *ngIf="part.isReportedFix"
+              class="fix-badge reported">
+              Reported Fix
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
