@@ -38,6 +38,7 @@ export class PartModel {
   isDelete?: boolean;
   associatedAssetId?: number;
   isPartSelected!: boolean;
+  isSelected?: boolean; // <-- Added for UI selection state
   partNumber!: string;
   skuNumber!: string[];
 }

@@ -1,0 +1,89 @@
+<!-- Temporary search input until SearchBarComponent is migrated -->
+<div class="parts-search-bar">
+  <div class="search-section">
+    <input
+      type="text"
+      placeholder="Search parts..."
+      [value]="searchString"
+      (input)="onTypeSearch($event)"
+      class="search-input"
+    />
+  </div>
+</div>
+
+<!-- Temporary grid until VixxoGridComponent is updated -->
+<div class="grid">
+  <kendo-grid
+    [data]="partModel"
+    [loading]="isDataLoading"
+    [selectable]="selectableSettings"
+    [selectedKeys]="selectedItemIds"
+    [kendoGridSelectBy]="'id'"
+    (selectionChange)="selectedRowChange($event)"
+    (cellClick)="onCellClickEvent($event)"
+    [pageable]="false"
+    [sortable]="false"
+  >
+    <kendo-grid-column
+      field="isSelected"
+      [width]="50"
+      [headerClass]="'checkbox-column'"
+    >
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <input
+          type="checkbox"
+          [checked]="dataItem.isSelected"
+          (change)="onPartToggle(dataItem)"
+        />
+      </ng-template>
+    </kendo-grid-column>
+
+    <kendo-grid-column
+      field="name"
+      title="Part Name"
+      [width]="200"
+    >
+    </kendo-grid-column>
+
+    <kendo-grid-column
+      field="partNumber"
+      title="Part Number"
+      [width]="150"
+    >
+    </kendo-grid-column>
+
+    <kendo-grid-column
+      field="skuNumber"
+      title="SKU"
+      [width]="150"
+    >
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <div *ngIf="isArray(dataItem.skuNumber)">
+          <span *ngFor="let sku of dataItem.skuNumber; let i = index">
+            {{sku}}<span *ngIf="i < dataItem.skuNumber.length - 1">, </span>
+          </span>
+        </div>
+        <div *ngIf="!isArray(dataItem.skuNumber)">
+          {{dataItem.skuNumber}}
+        </div>
+      </ng-template>
+    </kendo-grid-column>
+  </kendo-grid>
+
+  <!-- Load more button for infinite scroll -->
+  <div class="load-more-container" *ngIf="!endOfResults && partModel.length > 0">
+    <button
+      type="button"
+      class="load-more-btn"
+      (click)="infinitySearch()"
+      [disabled]="isDataLoading"
+    >
+      {{ isDataLoading ? 'Loading...' : 'Load More' }}
+    </button>
+  </div>
+
+  <!-- No results message -->
+  <div class="no-results" *ngIf="partModel.length === 0 && !isDataLoading">
+    <p>No parts found. Try adjusting your search criteria.</p>
+  </div>
+</div>

@@ -1,0 +1,322 @@
+// Import your design system variables if available
+// @import '../../../../../assets/styles/definitions';
+
+// Fallback variables (replace with your actual design tokens)
+$_honeydew: #e8f5e8;
+$_onyx: #2c2c2c;
+$_olive: #788536;
+$_platinum: #d4d7d9;
+$_coal: #2c2c2c;
+$_stone: #6c757d;
+$_nickel: #9ca3af;
+$_quartz: #f8f9fa;
+$f5: 14px;
+$f6: 13px;
+
+// Selected state styling
+::ng-deep .k-selected {
+  background-color: $_honeydew;
+  color: $_onyx;
+}
+
+::ng-deep .k-grid tr.k-selected > td {
+  background: $_honeydew;
+  color: $_onyx;
+}
+
+::ng-deep .k-checkbox:checked {
+  border-color: $_olive;
+  color: white;
+  background-color: $_olive;
+}
+
+// Search bar styling
+.parts-search-bar {
+  padding: 10px 0;
+
+  .search-section {
+    position: relative;
+
+    .search-input {
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTExLjc0MjYgMTAuMzI4NEwxNS4wNDU1IDEzLjYzMTNMMTMuNjMxMyAxNS4wNDU1TDEwLjMyODQgMTEuNzQyNkM5LjIzMzA1IDEyLjU0ODcgNy44NzA0NSAxMyA2LjUgMTNDMi45MTAxNSAxMyAwIDEwLjA4OTggMCA2LjVDMCAyLjkxMDE1IDIuOTEwMTUgMCA2LjUgMEMxMC4wODk4IDAgMTMgMi45MTAxNSAxMyA2LjVDMTMgNy44NzA0NSAxMi41NDg3IDkuMjMzMDUgMTEuNzQyNiAxMC4zMjg0Wk02LjUgMTFDOC45ODUyOCAxMSAxMSA4Ljk4NTI4IDExIDYuNUMxMSA0LjAxNDcyIDguOTg1MjggMiA2LjUgMkM0LjAxNDcyIDIgMiA0LjAxNDcyIDIgNi41QzIgOC45ODUyOCA0LjAxNDcyIDExIDYuNSAxMVoiIGZpbGw9IiM2Qzc1N0QiLz4KPHN2Zz4K');
+      background-position: 8px center;
+      background-repeat: no-repeat;
+      background-size: 1rem;
+      border: 1px solid $_platinum;
+      background-color: $_quartz !important;
+      width: 100%;
+      font-size: 1rem;
+      line-height: 1;
+      color: $_coal;
+      height: 2rem;
+      padding: 0 0.5rem 0 2rem;
+      outline: 0;
+      border-radius: 4px;
+
+      &:focus {
+        border-color: $_olive;
+        box-shadow: 0 0 0 2px rgba(120, 133, 54, 0.2);
+      }
+    }
+  }
+}
+
+// Grid container
+.grid {
+  padding: 0;
+
+  .load-more-container {
+    text-align: center;
+    padding: 20px;
+
+    .load-more-btn {
+      background-color: $_olive;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.2s ease;
+
+      &:hover:not(:disabled) {
+        background-color: darken($_olive, 10%);
+      }
+
+      &:disabled {
+        background-color: $_nickel;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 40px 20px;
+    color: $_stone;
+
+    p {
+      margin: 0;
+      font-size: 16px;
+    }
+  }
+}
+
+// Grid styling improvements
+::ng-deep .k-grid {
+  border: 1px solid $_platinum;
+  border-radius: 4px;
+
+  .k-grid-header {
+    background-color: $_quartz;
+    border-bottom: 2px solid $_platinum;
+
+    .k-header {
+      font-weight: 600;
+      color: $_coal;
+      padding: 12px 15px;
+    }
+  }
+
+  .k-grid-content {
+    .k-table-tbody {
+      .k-table-row {
+        &:hover {
+          background-color: lighten($_honeydew, 50%);
+        }
+
+        .k-table-td {
+          padding: 12px 15px;
+          border-bottom: 1px solid lighten($_platinum, 20%);
+          color: $_coal;
+
+          input[type="checkbox"] {
+            transform: scale(1.2);
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Mobile responsive styles
+@media screen and (max-width: 1024px) {
+  .parts-search-bar {
+    padding-top: 10px !important;
+  }
+
+  .grid {
+    padding: 5px;
+  }
+
+  // Custom grid styling for mobile
+  ::ng-deep .k-grid .k-grid-content tbody tr {
+    min-height: 94px;
+    width: calc(100% - 24px);
+    border: 0px !important;
+    border-radius: 0px !important;
+    display: flex;
+    margin: 0px !important;
+    padding: 0px !important;
+    box-sizing: none !important;
+    overflow: auto;
+    position: relative;
+    border-bottom: 1px solid $_nickel;
+  }
+
+  ::ng-deep .k-checkbox-label::before,
+  .k-checkbox-label::after {
+    font-size: $f5;
+    font-family: 'WebComponentsIcons', monospace;
+    box-sizing: border-box;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border-radius: 10px !important;
+    background-color: $_olive;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+
+  ::ng-deep .k-grid-header {
+    display: none;
+  }
+
+  ::ng-deep .k-grid tr.k-state-selected > td {
+    background-color: $_olive;
+  }
+
+  ::ng-deep .k-grid tr.k-state-selected {
+    background-color: $_olive;
+  }
+
+  ::ng-deep .k-checkbox:checked + .k-checkbox-label::after {
+    border: none;
+    background-color: $_olive;
+    top: 100%;
+    border-radius: 10px !important;
+  }
+
+  // Mobile grid card layout
+  ::ng-deep .k-grid .k-grid-content tbody tr td div.card-element-value {
+    color: $_coal;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: 'Biotif', sans-serif;
+  }
+
+  ::ng-deep .k-grid-header,
+  .k-grid-toolbar,
+  .k-grouping-header,
+  .k-grid-add-row,
+  .k-grid-footer {
+    color: #656565;
+    background-color: $_quartz;
+    display: none !important;
+  }
+
+  ::ng-deep .k-grid .k-grid-content tbody tr {
+    min-height: 70px !important;
+    width: calc(100% - 24px);
+    border: 1px solid $_nickel;
+    border-radius: 3px;
+    display: flex;
+    margin: 8px 0;
+    padding: 15px;
+    box-sizing: border-box;
+    overflow: auto;
+    position: relative;
+    padding-bottom: 4px !important;
+    margin-bottom: 2px !important;
+  }
+
+  ::ng-deep .k-checkbox:hover + .k-checkbox-label::after {
+    color: white !important;
+    background: $_olive !important;
+  }
+}
+
+// Desktop specific styles
+@media screen and (min-width: 1024px) {
+  ::ng-deep .k-checkbox:checked:focus {
+    box-shadow: none !important;
+  }
+
+  ::ng-deep .k-grid .k-master-row > td:focus {
+    box-shadow: none !important;
+  }
+
+  ::ng-deep .k-grid td {
+    font-size: 12px !important;
+    padding: 18px 15px !important;
+    border: 0 !important;
+    border-bottom: inherit !important;
+    color: $_stone !important;
+    font-family: 'Biotif', sans-serif !important;
+  }
+
+  ::ng-deep .k-grid td {
+    padding: 18px 15px;
+    border-bottom: 1px solid #afbaba;
+    border-top: 1px solid #afbaba;
+    border-width: inherit;
+  }
+
+  ::ng-deep .k-grid tr {
+    border-bottom: 1px solid #afbaba;
+  }
+
+  ::ng-deep tr td:first-child {
+    border-left: 1px solid #afbaba !important;
+  }
+
+  ::ng-deep tr td:last-child {
+    border-right: 1px solid #afbaba !important;
+  }
+
+  ::ng-deep .k-checkbox:hover + .k-checkbox-label::after {
+    color: white !important;
+    background: $_olive !important;
+  }
+}
+
+// Search bar filter button (hidden for now)
+::ng-deep .app-search-bar .search-section .filter-button {
+  font-weight: 900;
+  font-size: 0.625rem;
+  line-height: 1;
+  letter-spacing: 0.08rem;
+  text-transform: uppercase;
+  margin-right: 1rem;
+  display: flex;
+  min-width: 80px;
+  height: 2rem;
+  line-height: 2rem;
+  border: 1px solid $_platinum;
+  color: $_coal;
+  padding: 0;
+  align-items: center;
+  cursor: pointer;
+  display: none !important;
+}
+
+// Toolbar styling
+::ng-deep .k-grid-toolbar {
+  padding: 8px 8px;
+  border-width: 0 0 1px;
+  border-style: solid;
+  border-color: inherit;
+  text-overflow: clip;
+  cursor: default;
+  display: none !important;
+}
